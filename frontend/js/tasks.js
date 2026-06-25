@@ -168,8 +168,6 @@ function renderTask(task) {
   delBtn.onclick = async (e) => {
     e.stopPropagation();
 
-    if (!confirm("Удалить задачу?")) return;
-
     await deleteTask(task.id);
     await loadBoard();
   };
