@@ -14,9 +14,9 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
 
 /* ---------------- MIDDLEWARE ---------------- */
 
-app.use(express.static("../frontend/tasks.html"));
+app.use(express.static("../frontend"));
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: "http://localhost:3001",
   credentials: true
 }));
 
