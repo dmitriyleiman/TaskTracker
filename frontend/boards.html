@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Boards</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <div class="logo">tt</div>
+  </div>
+
+  <div class="user" id="user">User</div>
+</header>
+
+<main class="home">
+
+  <section class="home-hero">
+    <h1>Welcome back</h1>
+    <p>Your boards and tasks in one place</p>
+  </section>
+
+  <div class="boards-container">
+
+    <div class="boards-title">Your boards</div>
+
+    <div class="board-create">
+      <input id="boardNameInput" class="board-input" placeholder="New board name..." />
+      <button class="board-create-btn" onclick="createBoard()">Create</button>
+    </div>
+
+    <div id="boards-list" class="boards-list"></div>
+
+  </div>
+
+</main>
+
+<script src="js/boards.js"></script>
+
+</body>
+</html>
