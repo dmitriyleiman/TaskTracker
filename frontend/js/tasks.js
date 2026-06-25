@@ -60,6 +60,15 @@ async function updateTask(taskId, columnId) {
   });
 }
 
+async function deleteTask(taskId) {
+  await fetch(`${API}/tasks/${taskId}`, {
+    method: "DELETE",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+}
+
 async function fetchBoards() {
   const res = await fetch(`${API}/boards`, {
     headers: { Authorization: `Bearer ${token}` }
@@ -147,8 +156,26 @@ function renderColumn(column) {
 function renderTask(task) {
   const taskEl = document.createElement("div");
   taskEl.className = "task";
-  taskEl.textContent = task.text;
   taskEl.draggable = true;
+
+  const text = document.createElement("span");
+  text.textContent = task.text;
+
+  const delBtn = document.createElement("button");
+  delBtn.textContent = "×";
+  delBtn.className = "task-delete";
+
+  delBtn.onclick = async (e) => {
+    e.stopPropagation();
+
+    if (!confirm("Удалить задачу?")) return;
+
+    await deleteTask(task.id);
+    await loadBoard();
+  };
+
+  taskEl.appendChild(text);
+  taskEl.appendChild(delBtn);
 
   taskEl.addEventListener("dragstart", e => {
     taskEl.classList.add("dragging");
