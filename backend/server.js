@@ -250,20 +250,13 @@ app.patch("/tasks/:id", authMiddleware, (req, res) => {
   res.json({ ok: true });
 });
 
-app.delete("/tasks/:id", auth, (req, res) => {
-    const { id } = req.params;
+app.delete("/tasks/:id", authMiddleware, (req, res) => {
+  db.prepare(`
+    DELETE FROM tasks
+    WHERE id = ?
+  `).run(req.params.id);
 
-    db.run(
-        "DELETE FROM tasks WHERE id = ?",
-        [id],
-        function (err) {
-            if (err) {
-                return res.status(500).json({ error: err.message });
-            }
-
-            res.json({ success: true });
-        }
-    );
+  res.json({ ok: true });
 });
 
 /* ---------------- START ---------------- */
