@@ -1,4 +1,4 @@
-const API = "http://localhost:3000";
+const API = "http://193.233.90.152:3000";
 const token = localStorage.getItem("token");
 
 /* ---------------- AUTH GUARD ---------------- */
