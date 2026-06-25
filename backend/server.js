@@ -16,7 +16,7 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
 
 app.use(express.static("../frontend"));
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: "*",
   credentials: true
 }));
 
