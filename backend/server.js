@@ -16,7 +16,8 @@ const JWT_SECRET = process.env.JWT_SECRET || "secret_key";
 
 app.use(express.static("../frontend"));
 app.use(cors({
-  origin: "*"
+  origin: "*",
+  credentials: true
 }));
 
 app.use(express.json());
@@ -249,12 +250,20 @@ app.patch("/tasks/:id", authMiddleware, (req, res) => {
   res.json({ ok: true });
 });
 
-// DELETE TASK
-app.delete("/tasks/:id", authMiddleware, (req, res) => {
-  db.prepare("DELETE FROM tasks WHERE id = ?")
-    .run(req.params.id);
+app.delete("/tasks/:id", auth, (req, res) => {
+    const { id } = req.params;
 
-  res.json({ ok: true });
+    db.run(
+        "DELETE FROM tasks WHERE id = ?",
+        [id],
+        function (err) {
+            if (err) {
+                return res.status(500).json({ error: err.message });
+            }
+
+            res.json({ success: true });
+        }
+    );
 });
 
 /* ---------------- START ---------------- */
